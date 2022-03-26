@@ -18,6 +18,7 @@ public class main extends Application {
         stage.setTitle("PRISM");
         stage.getIcons().add(new Image("file:src/main/resources/final_project/csci2020u_final_project/Application Icon.png"));
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
