@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloController {
+public class homeScreenController {
     @FXML
     private Label welcomeText;
 

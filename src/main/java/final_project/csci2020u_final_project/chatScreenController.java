@@ -41,6 +41,6 @@ public class chatScreenController {
     }
 
 //    public void homeScreen_to_chatScreen() {
-//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homeScreen.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("homeScreen.fxml"));
 //    }
 }
