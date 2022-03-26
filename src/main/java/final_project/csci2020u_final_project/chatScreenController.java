@@ -34,6 +34,12 @@ public class chatScreenController {
         }
     }
 
+    public void sendKeyClicked() {
+            outgoingMessage = messageArea.getText();
+            System.out.println("SEND: " + outgoingMessage);
+            messageArea.clear();
+    }
+
 //    public void homeScreen_to_chatScreen() {
 //        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homeScreen.fxml"));
 //    }
