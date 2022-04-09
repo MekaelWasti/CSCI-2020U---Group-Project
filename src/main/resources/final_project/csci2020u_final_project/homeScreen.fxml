@@ -12,19 +12,14 @@
          </image>
       </ImageView>
       
-      <ImageView fitHeight="50.0" fitWidth="417.0" layoutX="426.0" layoutY="324.0">
-         <image>
-            <Image url="@Home_Screen/HomeScreen_logoArrows.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="23.0" fitWidth="200.0" layoutX="534.0" layoutY="337.0">
-         <image>
-            <Image url="@Home_Screen/HomeScreen_LOGO.png" />
-         </image>
-      </ImageView>
       <ImageView fx:id="logInButton" layoutX="541.0" layoutY="403.0" onMouseClicked="#homeScreen_to_chatScreen" onMouseEntered="#buttonHovered" onMouseExited="#buttonHoveredExited">
          <image>
             <Image url="@Home_Screen/HomeScreen_logInButton.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="logo" fitHeight="260.0" fitWidth="675.0" layoutX="303.0" layoutY="204.0">
+         <image>
+            <Image url="@Home_Screen/HomeScreen_LOGO.png" />
          </image>
       </ImageView>
    </children>

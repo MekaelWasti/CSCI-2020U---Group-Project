@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="final_project.csci2020u_final_project.chatScreenController">
    <children>
@@ -23,11 +24,13 @@
             <Image url="@Chat_Screen/Main%20Screen.png" />
          </image>
       </ImageView>
-      <TextField fx:id="messageArea" layoutX="298.0" layoutY="619.0" onKeyPressed="#sendButtonClicked" prefHeight="85.0" prefWidth="884.0" style="-fx-text-fill: #f8f8ff; -fx-background-color: #616161; -fx-border-color: 616161;" />
-      <ImageView fx:id="sendButton" fitHeight="51.0" fitWidth="54.0" layoutX="1191.0" layoutY="636.0" onMouseClicked="#sendKeyClicked" onMouseEntered="#buttonHovered" onMouseExited="#buttonHoveredExited">
+      <TextField fx:id="messageArea" layoutX="298.0" layoutY="619.0" onKeyPressed="#sendKeyClicked" prefHeight="85.0" prefWidth="884.0" style="-fx-text-fill: #f8f8ff; -fx-background-color: #353535; -fx-border-color: 616161;" />
+      <ImageView fx:id="sendButton" fitHeight="51.0" fitWidth="54.0" layoutX="1191.0" layoutY="636.0" onMouseClicked="#sendButtonClicked" onMouseEntered="#buttonHovered" onMouseExited="#buttonHoveredExited">
          <image>
             <Image url="@Chat_Screen/SendButton.png" />
          </image>
       </ImageView>
+      <VBox layoutX="260.0" layoutY="29.0" prefHeight="578.0" prefWidth="1009.0" />
+      <TextArea fx:id="chatLog" editable="false" focusTraversable="false" layoutX="258.0" layoutY="-1.0" prefHeight="611.0" prefWidth="1022.0" style="-fx-background-color: text-area-background;" stylesheets="@../../styles.css" wrapText="true" />
    </children>
 </AnchorPane>

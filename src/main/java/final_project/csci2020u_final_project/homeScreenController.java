@@ -12,16 +12,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class homeScreenController {
-    @FXML
-    private Label welcomeText;
 
     @FXML
     private ImageView logInButton;
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+    private ImageView logo;
 
 
     //Log In Button Methods
@@ -35,9 +31,13 @@ public class homeScreenController {
 
     public void homeScreen_to_chatScreen() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("chatScreen.fxml"));
+        logo.setTranslateY(-175);
+        logo.setTranslateY(-175);
+
+
+
 
         Stage window = (Stage) logInButton.getScene().getWindow();
         window.setScene(new Scene(root, 1280,720));
-
     }
 }
