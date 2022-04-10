@@ -10,10 +10,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.Socket;
+
+import static java.lang.System.in;
+import static java.lang.System.out;
 
 public class chatScreenController {
 
@@ -22,7 +23,10 @@ public class chatScreenController {
 
     //Connect to socket
     Socket s = new Socket("99.232.136.159",63030);
-    BufferedWriter br = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+
+//    InputStream in = s.getInputStream();
+//    ObjectInputStream oin = new ObjectInputStream(in);
+
 
     @FXML
     private ImageView sendButton;
@@ -47,28 +51,51 @@ public class chatScreenController {
     public void sendKeyClicked(KeyEvent event) throws IOException {
         if(event.getCode() == KeyCode.ENTER) {
             outgoingMessage = messageArea.getText();
-            System.out.println("SEND: " + outgoingMessage);
+            out.println("SEND: " + outgoingMessage);
             sendMessage();
         }
     }
 
     public void sendButtonClicked() throws IOException {
             outgoingMessage = messageArea.getText();
-            System.out.println("SEND: " + outgoingMessage);
+            out.println("SEND: " + outgoingMessage);
             sendMessage();
     }
 
     public void sendMessage() throws IOException {
         //Send Message
+
             try {
-                br.write(messageArea.getText());
-                chatLog.appendText(messageArea.getText() + "\n");
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+                BufferedReader incoming = new BufferedReader(new InputStreamReader(s.getInputStream()));
+
+                bw.write(messageArea.getText());
+//                chatLog.appendText(messageArea.getText() + "\n");
                 messageArea.clear();
-                br.newLine();
-                br.flush();
+                bw.newLine();
+                bw.flush();
+
+                String incomingMessage;
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String incomingMessage;
+
+                        while (s.isConnected()) {
+                            try {
+                                incomingMessage = incoming.readLine();
+                                out.println(incomingMessage);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }).start();
+
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("Error Sending Message");
+                out.println("Error Sending Message");
             }
     }
 
