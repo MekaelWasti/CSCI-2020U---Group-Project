@@ -18,11 +18,14 @@ import static java.lang.System.out;
 
 public class chatScreenController {
 
+    public Socket s = new Socket("99.232.136.159",63030);
     String outgoingMessage = "";
+    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+    BufferedReader incoming = new BufferedReader(new InputStreamReader(s.getInputStream()));
+
 
 
     //Connect to socket
-    Socket s = new Socket("99.232.136.159",63030);
 
 //    InputStream in = s.getInputStream();
 //    ObjectInputStream oin = new ObjectInputStream(in);
@@ -66,37 +69,41 @@ public class chatScreenController {
         //Send Message
 
             try {
-                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
-                BufferedReader incoming = new BufferedReader(new InputStreamReader(s.getInputStream()));
-
                 bw.write(messageArea.getText());
-//                chatLog.appendText(messageArea.getText() + "\n");
                 messageArea.clear();
+
+                listenForMessage();
+
                 bw.newLine();
                 bw.flush();
-
-                String incomingMessage;
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        String incomingMessage;
-
-                        while (s.isConnected()) {
-                            try {
-                                incomingMessage = incoming.readLine();
-                                out.println(incomingMessage);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }).start();
 
             } catch (IOException e) {
                 e.printStackTrace();
                 out.println("Error Sending Message");
             }
+    }
+
+    public void listenForMessage() {
+        String incomingMessage;
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String incomingMessage;
+
+                while (s.isConnected()) {
+                    try {
+                        incomingMessage = incoming.readLine();
+                        out.println(incomingMessage);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+
+
     }
 
 //    public void homeScreen_to_chatScreen() {
