@@ -21,7 +21,7 @@ public class chatScreenController {
 
 
     //Connect to socket
-    Socket s = new Socket("localhost",4999);
+    Socket s = new Socket("99.232.136.159",63030);
     BufferedWriter br = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
 
     @FXML
