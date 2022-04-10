@@ -15,16 +15,6 @@ public class main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 //        FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("homeScreen.fxml"));
-
-        chatScreenController chatScreenController = new chatScreenController();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                chatScreenController.listenForMessage();
-                }
-        }).start();
-
-
         Parent root = FXMLLoader.load(getClass().getResource("homeScreen.fxml"));
         Scene scene = new Scene(root, 1280, 720);
         stage.setTitle("PRISM");

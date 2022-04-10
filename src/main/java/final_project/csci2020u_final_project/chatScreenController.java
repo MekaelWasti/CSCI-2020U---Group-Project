@@ -40,6 +40,7 @@ public class chatScreenController {
 
 
     public chatScreenController() throws IOException {
+        listenForMessage();
     }
 
     //Send Button Methods
@@ -55,6 +56,7 @@ public class chatScreenController {
         if(event.getCode() == KeyCode.ENTER) {
             outgoingMessage = messageArea.getText();
             out.println("SEND: " + outgoingMessage);
+            chatLog.appendText("Me: " + outgoingMessage + "\n");
             sendMessage();
         }
     }
@@ -62,6 +64,7 @@ public class chatScreenController {
     public void sendButtonClicked() throws IOException {
             outgoingMessage = messageArea.getText();
             out.println("SEND: " + outgoingMessage);
+            chatLog.appendText("Me: " + outgoingMessage + "\n");
             sendMessage();
     }
 
@@ -71,9 +74,6 @@ public class chatScreenController {
             try {
                 bw.write(messageArea.getText());
                 messageArea.clear();
-
-                listenForMessage();
-
                 bw.newLine();
                 bw.flush();
 
@@ -84,8 +84,6 @@ public class chatScreenController {
     }
 
     public void listenForMessage() {
-        String incomingMessage;
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -95,6 +93,7 @@ public class chatScreenController {
                     try {
                         incomingMessage = incoming.readLine();
                         out.println(incomingMessage);
+                        chatLog.appendText(incomingMessage + "\n");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
