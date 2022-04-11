@@ -57,7 +57,7 @@ public class chatScreenController {
         if(event.getCode() == KeyCode.ENTER) {
             outgoingMessage = messageArea.getText();
             out.println("SEND: " + outgoingMessage);
-            chatLog.appendText("Me: " + outgoingMessage + "\n");
+            chatLog.appendText("Me: " + outgoingMessage + "\n\n");
             sendMessage();
         }
     }
@@ -65,7 +65,7 @@ public class chatScreenController {
     public void sendButtonClicked() throws IOException {
             outgoingMessage = messageArea.getText();
             out.println("SEND: " + outgoingMessage);
-            chatLog.appendText("Me: " + outgoingMessage + "\n");
+            chatLog.appendText("Me: " + outgoingMessage + "\n\n");
             sendMessage();
     }
 
@@ -96,7 +96,7 @@ public class chatScreenController {
 
                             while((incomingMessage = incoming.readLine()) != null) {
 //                                out.println(incomingMessage);
-                                chatLog.appendText(incomingMessage + "\n");
+                                chatLog.appendText("Contact: " + incomingMessage + "\n\n");
 //                                chatLog.appendText("Me: " + incomingMessage + "\n");
                             }
 
