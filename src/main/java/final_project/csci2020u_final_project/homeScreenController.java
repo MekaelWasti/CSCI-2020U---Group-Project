@@ -31,9 +31,8 @@ public class homeScreenController {
 
     public void homeScreen_to_chatScreen() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("chatScreen.fxml"));
-        logo.setTranslateY(-175);
-        logo.setTranslateY(-175);
-
+//        logo.setTranslateY(-175);
+//        logo.setTranslateY(-175);
 
 
 
