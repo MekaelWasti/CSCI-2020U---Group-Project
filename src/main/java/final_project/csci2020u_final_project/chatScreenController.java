@@ -21,7 +21,6 @@ public class chatScreenController {
     public Socket s = new Socket("99.232.136.159",63030);
     String outgoingMessage = "";
     BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
-    BufferedReader incoming = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
 
 
@@ -40,7 +39,9 @@ public class chatScreenController {
 
 
     public chatScreenController() throws IOException {
-        listenForMessage();
+//        while (true) {
+            listenForMessage();
+//        }
     }
 
     //Send Button Methods
@@ -89,16 +90,21 @@ public class chatScreenController {
             public void run() {
                 String incomingMessage;
 
-                while (s.isConnected()) {
-                    try {
-                        incomingMessage = incoming.readLine();
-                        out.println(incomingMessage);
-                        chatLog.appendText(incomingMessage + "\n");
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    while (s.isConnected()) {
+                        try {
+                            BufferedReader incoming = new BufferedReader(new InputStreamReader(s.getInputStream()));
+
+                            while((incomingMessage = incoming.readLine()) != null) {
+//                                out.println(incomingMessage);
+                                chatLog.appendText(incomingMessage + "\n");
+//                                chatLog.appendText("Me: " + incomingMessage + "\n");
+                            }
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            }
                     }
-                }
-            }
+        }
         }).start();
 
 
