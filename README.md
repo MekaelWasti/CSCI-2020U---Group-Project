@@ -17,10 +17,13 @@ of data, along with the use of multithreading concepts for optimized performance
 
 2. How to run: step-by-step  information on how one can successfully clone and run 
 your application. 
+  Steps:
+    In terminal: git clone https://github.com/MekaelWasti/CSCI-2020U---Group-Project
+    
 
 
 3. Other  resources:  any  references  to  other  materials/libraries  that  you  might  have 
 used on your solution. 
 
 
-4. (Optional) URL to a video demo of your application 
+4. (NOT OPTIONAL) URL to a video demo of your application 
