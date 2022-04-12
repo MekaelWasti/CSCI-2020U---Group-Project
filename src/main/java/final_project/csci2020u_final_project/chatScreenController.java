@@ -1,10 +1,12 @@
 package final_project.csci2020u_final_project;
 
 import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -14,7 +16,9 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.io.*;
@@ -29,6 +33,7 @@ public class chatScreenController implements Initializable {
 
     //Connect to server socket
     public Socket s = new Socket("99.232.136.159",63030);
+//    public Socket s = new Socket("18.208.182.54",63030);
     String outgoingMessage = "";
     BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
 
@@ -39,6 +44,11 @@ public class chatScreenController implements Initializable {
     @FXML
     private VBox newChatField;
     @FXML
+    private TextField contactUsernameTextField;
+    @FXML
+    private TextField contactIPTextField;
+
+    @FXML
     private TextField messageArea;
     @FXML
     private TextArea chatLog;
@@ -46,11 +56,45 @@ public class chatScreenController implements Initializable {
     public Label myIPLabel;
     @FXML
     public ImageView copiedMessage;
+    @FXML
+    public Button createChatButton;
 
+    //Contacts Section
+//    @FXML
+//    public VBox contactBar;
+//    @FXML
+//    public HBox singleContact;
+//    @FXML
+//    public Circle contactIcon;
+//    @FXML
+//    public Label contactUsernameLabel;
+//    @FXML
+//    private Label contactIconPicture;
 
 
     public chatScreenController() throws IOException {
         listenForMessage();
+    }
+
+    //Contacts Section
+
+    public void addNewContact() {
+        newChatButtonDropDown();
+        out.println("Sending Messages To: " + contactIPTextField.getText());
+        int contactCount = 0;
+
+//        newContactController
+
+
+//        String contactsocketAddress = contactIPTextField.getText();
+//        contactUsernameLabel.setText(contactUsernameLabel.getText());
+//        out.println(contactsocketAddress);
+//        HBox newContact = singleContact;
+//        newContact.setId(singleContact.getId().toString() + ++contactCount);
+//        newContact.setId(singleContact.getId().toString() + 300);
+//        out.println(singleContact.getId());
+//        out.println(newContact.getId());
+//        contactBar.getChildren().add(newContact);
     }
 
 
@@ -101,19 +145,16 @@ public class chatScreenController implements Initializable {
             ft.setToValue(0);
             ft.setCycleCount(1);
             ft.play();
-            return;
+
+            ft.setOnFinished(e -> {
+                copiedMessage.setDisable(true);
+                copiedMessage.setVisible(false);
+                copiedMessage.setOpacity(1);
+                ft.stop();
+            });
         }
-        if (!copiedMessage.isDisabled()) {
-            copiedMessage.setVisible(false);
-            copiedMessage.setDisable(true);
-        }
-
-
-
-
     }
 
-    //New Chat Button Methods
 
     //Change Opacity of New Chat button on hover event
     public void newChatButtonHovered() {
@@ -159,6 +200,10 @@ public class chatScreenController implements Initializable {
     public void sendMessage() throws IOException {
         //Send Message
             try {
+                bw.write(contactIPTextField.getText());
+                bw.newLine();
+//                bw.flush();
+
                 bw.write(messageArea.getText());
                 messageArea.clear();
                 bw.newLine();
@@ -184,7 +229,7 @@ public class chatScreenController implements Initializable {
                                 chatLog.appendText("Contact: " + incomingMessage + "\n\n");
                             }
                         } catch (IOException e) {
-                            e.printStackTrace();
+//                            e.printStackTrace();
                             }
                     }
         }
