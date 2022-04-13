@@ -33,8 +33,8 @@ import static java.lang.System.out;
 public class chatScreenController implements Initializable {
 
     //Connect to server socket
-    public Socket s = new Socket("99.232.136.159",63030);
-//    public Socket s = new Socket("18.208.182.54",63030);
+//    public Socket s = new Socket("99.232.136.159",63030);
+    public Socket s = new Socket("54.226.250.215",63030);
     String outgoingMessage = "";
     BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
 
