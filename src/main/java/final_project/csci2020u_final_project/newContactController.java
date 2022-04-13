@@ -27,7 +27,6 @@ public class newContactController implements Initializable {
         System.out.println(singleContact.getId());
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         singleContact.setId("20");

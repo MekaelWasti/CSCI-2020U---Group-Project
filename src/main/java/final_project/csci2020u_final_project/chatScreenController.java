@@ -33,10 +33,31 @@ import static java.lang.System.out;
 public class chatScreenController implements Initializable {
 
     //Connect to server socket
-//    public Socket s = new Socket("99.232.136.159",63030);
-    public Socket s = new Socket("54.226.250.215",63030);
+    //public Socket s = new Socket("localhost",63030);                  //For server ran locally
+    //public Socket s = new Socket("99.232.136.159",63030);             //For testing
+    public static Socket s;     //For connection to AWS server (over internet)
+    String ip = null; //My public IP is gotten in constructor
+
+
+
+    static {
+        try {
+//            s = new Socket("localhost",63030);                  //For server ran locally
+            s = new Socket("99.232.136.159",63030);             //For testing
+//            s = new Socket("54.226.250.215",63030);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     String outgoingMessage = "";
     BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+//    public static String myport = s.getLocalPort();
+
+
+
+
+
 
     @FXML
     private ImageView sendButton;
@@ -47,7 +68,7 @@ public class chatScreenController implements Initializable {
     @FXML
     private TextField contactUsernameTextField;
     @FXML
-    private TextField contactIPTextField;
+    private TextField contactCode;
 
     @FXML
     private TextField messageArea;
@@ -75,15 +96,37 @@ public class chatScreenController implements Initializable {
 
     public chatScreenController() throws IOException {
         listenForMessage();
+
+
+        //Get My Public IP
+        URL myPublicIP = null;
+        try {
+            myPublicIP = new URL("http://checkip.amazonaws.com");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new InputStreamReader(myPublicIP.openStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            ip = in.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(ip);
     }
 
     //Contacts Section
 
     public void addNewContact() {
         newChatButtonDropDown();
-        out.println("Sending Messages To: " + contactIPTextField.getText());
+        out.println("Sending Messages To: " + contactCode.getText());
         int contactCount = 0;
 
+        out.println("MY USERNAME: " + homeScreenController.thisUSERNAME);
 //        newContactController
 
 
@@ -121,7 +164,7 @@ public class chatScreenController implements Initializable {
         String IP = myIPLabel.getText();
 
         //Copy ONLY ip segment of the label
-        for (int i = 7; i < IP.length(); i++) {
+        for (int i = 9; i < IP.length(); i++) {
             myIp.append(IP.charAt(i));
         }
 
@@ -201,10 +244,16 @@ public class chatScreenController implements Initializable {
     public void sendMessage() throws IOException {
         //Send Message
             try {
-                bw.write(contactIPTextField.getText());
+                //Send Contact Code to server
+                bw.write(contactCode.getText());
                 bw.newLine();
 //                bw.flush();
 
+                //Send Username to server
+                bw.write(homeScreenController.thisUSERNAME);
+                bw.newLine();
+
+                //Send Message to server
                 bw.write(messageArea.getText());
                 messageArea.clear();
                 bw.newLine();
@@ -227,7 +276,7 @@ public class chatScreenController implements Initializable {
                         try {
                             BufferedReader incoming = new BufferedReader(new InputStreamReader(s.getInputStream()));
                             while((incomingMessage = incoming.readLine()) != null) {
-                                chatLog.appendText("Contact: " + incomingMessage + "\n\n");
+                                chatLog.appendText(incomingMessage + "\n\n");
                             }
                         } catch (IOException e) {
 //                            e.printStackTrace();
@@ -241,27 +290,12 @@ public class chatScreenController implements Initializable {
     //is not null upon screen change and socket IP can be appended to the label
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+//
+//
+//
+////        myIPLabel.setText("MY IP: ");
+////        myIPLabel.setText("MY IP: " + ip + ":" + s.getLocalPort());
+////        myIPLabel.setText("My Code: " + thisUSERNAME + ":" + s.getLocalPort());
 
-        URL myPublicIP = null;
-        try {
-            myPublicIP = new URL("http://checkip.amazonaws.com");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        BufferedReader in = null;
-        try {
-            in = new BufferedReader(new InputStreamReader(myPublicIP.openStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String ip = null; //you get the IP as a String
-        try {
-            ip = in.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println(ip);
-
-        myIPLabel.setText("MY IP: " + ip + ":" + s.getLocalPort());
     }
 }

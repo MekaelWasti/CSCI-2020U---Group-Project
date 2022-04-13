@@ -7,7 +7,6 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="63.0" prefWidth="258.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="final_project.csci2020u_final_project.homeScreenController">
    <children>
       <HBox fx:id="singleContact" alignment="CENTER" prefHeight="64.0" prefWidth="258.0" spacing="34.0">

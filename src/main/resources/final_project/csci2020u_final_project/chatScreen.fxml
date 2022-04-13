@@ -89,7 +89,7 @@
                </font>
             </TextField>
             <Label layoutX="10.0" layoutY="10.0" />
-            <TextField fx:id="contactIPTextField" prefWidth="212.0" promptText="Contact's Public Ip Address" style="-fx-background-color: #ffffff;">
+            <TextField fx:id="contactCode" prefWidth="212.0" promptText="Contact's Public Ip Address" style="-fx-background-color: #ffffff;">
                <font>
                   <Font name="AvenirNextforSAS Bold" size="12.0" />
                </font></TextField>

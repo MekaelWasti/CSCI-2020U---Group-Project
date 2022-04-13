@@ -5,11 +5,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+
+import static java.lang.System.out;
 
 public class homeScreenController {
 
@@ -18,6 +23,10 @@ public class homeScreenController {
 
     @FXML
     private ImageView logo;
+    @FXML
+    private TextField inputUsername;
+
+    public static String thisUSERNAME;
 
 
     //Log In Button Methods
@@ -30,13 +39,31 @@ public class homeScreenController {
     }
 
     public void homeScreen_to_chatScreen() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("chatScreen.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("chatScreen.fxml"));
 //        logo.setTranslateY(-175);
 //        logo.setTranslateY(-175);
 
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("chatScreen.fxml"));
+        Parent root = loader.load();
+        chatScreenController labelController = loader.getController();
+        labelController.myIPLabel.setText("My Code: " + inputUsername.getText() + ":" + chatScreenController.s.getLocalPort());
+        thisUSERNAME = inputUsername.getText() + ":" + chatScreenController.s.getLocalPort();
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(chatScreenController.s.getOutputStream()));
 
-        Stage window = (Stage) logInButton.getScene().getWindow();
-        window.setScene(new Scene(root, 1280,720));
+        try {
+            //Send Username to server
+            bw.write(homeScreenController.thisUSERNAME);
+            bw.newLine();
+            bw.flush();
+        } catch (IOException ignored) {
+        }
+
+
+        logInButton.getScene().setRoot(root);
+
+//        chatScreenController.myIPLabel.setText(inputUsername.getText());
+//        Stage window = (Stage) logInButton.getScene().getWindow();
+//        window.setScene(new Scene(root, 1280,720));
     }
 }

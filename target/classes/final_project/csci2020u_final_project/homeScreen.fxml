@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -11,16 +12,17 @@
             <Image url="@Home_Screen/HomeScreen_background.png" />
          </image>
       </ImageView>
-      
-      <ImageView fx:id="logInButton" layoutX="541.0" layoutY="403.0" onMouseClicked="#homeScreen_to_chatScreen" onMouseEntered="#buttonHovered" onMouseExited="#buttonHoveredExited">
-         <image>
-            <Image url="@Home_Screen/HomeScreen_logInButton.png" />
-         </image>
-      </ImageView>
       <ImageView fx:id="logo" fitHeight="260.0" fitWidth="675.0" layoutX="303.0" layoutY="204.0">
          <image>
             <Image url="@Home_Screen/HomeScreen_LOGO.png" />
          </image>
       </ImageView>
+      
+      <ImageView fx:id="logInButton" layoutX="544.0" layoutY="514.0" onMouseClicked="#homeScreen_to_chatScreen" onMouseEntered="#buttonHovered" onMouseExited="#buttonHoveredExited">
+         <image>
+            <Image url="@Home_Screen/HomeScreen_logInButton.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="inputUsername" alignment="CENTER" layoutX="468.0" layoutY="443.0" prefHeight="52.0" prefWidth="344.0" promptText="Enter Username" style="-fx-text-fill: #f8f8ff; -fx-background-color: #353535; -fx-border-color: 616161;" />
    </children>
 </Pane>
