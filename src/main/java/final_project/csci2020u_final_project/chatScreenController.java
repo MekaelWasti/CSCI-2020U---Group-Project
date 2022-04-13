@@ -16,6 +16,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
@@ -82,21 +83,22 @@ public class chatScreenController implements Initializable {
     public Button createChatButton;
 
     //Contacts Section
-//    @FXML
-//    public VBox contactBar;
-//    @FXML
-//    public HBox singleContact;
-//    @FXML
-//    public Circle contactIcon;
-//    @FXML
-//    public Label contactUsernameLabel;
-//    @FXML
-//    private Label contactIconPicture;
+    @FXML
+    public VBox contactBar;
+    @FXML
+    public AnchorPane singleContact;
+    @FXML
+    public HBox singleContact1;
+    @FXML
+    public Circle contactIcon;
+    @FXML
+    public Label contactUsernameLabel;
+    @FXML
+    private Label contactIconPicture;
 
 
     public chatScreenController() throws IOException {
         listenForMessage();
-
 
         //Get My Public IP
         URL myPublicIP = null;
@@ -116,7 +118,6 @@ public class chatScreenController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(ip);
     }
 
     //Contacts Section
@@ -125,20 +126,11 @@ public class chatScreenController implements Initializable {
         newChatButtonDropDown();
         out.println("Sending Messages To: " + contactCode.getText());
         int contactCount = 0;
+        singleContact.setVisible(true);
+        singleContact.setDisable(false);
+        contactIconPicture.setText(String.valueOf(contactUsernameTextField.getText().charAt(0)));
+        contactUsernameLabel.setText(contactUsernameTextField.getText());
 
-        out.println("MY USERNAME: " + homeScreenController.thisUSERNAME);
-//        newContactController
-
-
-//        String contactsocketAddress = contactIPTextField.getText();
-//        contactUsernameLabel.setText(contactUsernameLabel.getText());
-//        out.println(contactsocketAddress);
-//        HBox newContact = singleContact;
-//        newContact.setId(singleContact.getId().toString() + ++contactCount);
-//        newContact.setId(singleContact.getId().toString() + 300);
-//        out.println(singleContact.getId());
-//        out.println(newContact.getId());
-//        contactBar.getChildren().add(newContact);
     }
 
 

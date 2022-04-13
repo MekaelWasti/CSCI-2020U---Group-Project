@@ -55,19 +55,28 @@
       </ImageView>
       <VBox fx:id="contactBar" layoutY="189.0" prefHeight="422.0" prefWidth="258.0">
          <children>
-            <HBox fx:id="singleContact" alignment="CENTER" prefHeight="64.0" prefWidth="258.0" spacing="34.0">
+            <AnchorPane fx:id="singleContact" disable="true" prefHeight="63.0" prefWidth="258.0" visible="false">
                <children>
-                  <Circle fx:id="contactIcon" fill="#353535" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                  <Label fx:id="contactUsernameLabel" prefHeight="64.0" prefWidth="163.0" text="USERNAME" textFill="WHITE">
+                  <HBox fx:id="singleContact1" alignment="CENTER" prefHeight="64.0" prefWidth="258.0" spacing="34.0">
+                     <children>
+                        <Circle fx:id="contactIcon" fill="#353535" radius="19.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Label fx:id="contactUsernameLabel" prefHeight="64.0" prefWidth="163.0" text="USERNAME" textFill="WHITE">
+                           <font>
+                              <Font name="AvenirNextforSAS Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets right="4.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Label fx:id="contactIconPicture" alignment="CENTER" layoutX="11.0" layoutY="12.0" prefHeight="39.0" prefWidth="40.0" text="M" textFill="WHITE">
                      <font>
-                        <Font name="AvenirNextforSAS Bold" size="14.0" />
+                        <Font name="AvenirNextforSAS" size="12.0" />
                      </font>
-                     <padding>
-                        <Insets right="4.0" />
-                     </padding>
                   </Label>
                </children>
-            </HBox>
+            </AnchorPane>
          </children>
       </VBox>
       <VBox fx:id="newChatField" disable="true" layoutX="135.0" layoutY="111.0" prefHeight="114.0" prefWidth="204.0" style="-fx-background-color: #353535;" visible="false">
@@ -89,7 +98,7 @@
                </font>
             </TextField>
             <Label layoutX="10.0" layoutY="10.0" />
-            <TextField fx:id="contactIPTextField" prefWidth="212.0" promptText="Contact's Public Ip Address" style="-fx-background-color: #ffffff;">
+            <TextField fx:id="contactCode" prefWidth="212.0" promptText="Contact's Public Ip Address" style="-fx-background-color: #ffffff;">
                <font>
                   <Font name="AvenirNextforSAS Bold" size="12.0" />
                </font></TextField>
