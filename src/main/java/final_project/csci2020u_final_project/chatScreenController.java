@@ -21,6 +21,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
+import java.util.Objects;
 
 import static java.lang.System.out;
 
@@ -244,7 +245,7 @@ public class chatScreenController {
      * @throws IOException
     */
     public void sendKeyClicked(KeyEvent event) throws IOException {
-        if(event.getCode() == KeyCode.ENTER) {
+        if(event.getCode() == KeyCode.ENTER && !Objects.equals(messageArea.getText(), "")) {
             outgoingMessage = messageArea.getText();
             out.println("SEND: " + outgoingMessage);
             chatLog.appendText("Me: " + outgoingMessage + "\n\n");
@@ -257,10 +258,12 @@ public class chatScreenController {
      * @throws IOException
     */
     public void sendButtonClicked() throws IOException {
+        if (!Objects.equals(messageArea.getText(), "")) {
             outgoingMessage = messageArea.getText();
-            out.println("SEND: " + outgoingMessage);
+            out.println("SEND: " + outgoingMessage );
             chatLog.appendText("Me: " + outgoingMessage + "\n\n");
             sendMessage();
+        }
     }
 
 
