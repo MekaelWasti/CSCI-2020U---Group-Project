@@ -2,6 +2,8 @@
 
 Final Project for CSCI 2020U by: Mekael Wasti - 100780179, Gavin Bosman - 100781902, Ammar Hatiya - 100746962
 
+REPO TO CHAT PROGRAM FOR THIS PROJECT: https://github.com/MekaelWasti/Java-Chat-Server-PRISM-Without-GUI-
+
 ## Description
 
 
