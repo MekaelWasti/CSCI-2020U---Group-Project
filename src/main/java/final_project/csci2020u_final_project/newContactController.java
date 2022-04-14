@@ -4,12 +4,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/** 
+ * Controller class for new contact fxml file
+ * @implemtns initializable
+*/
 public class newContactController implements Initializable {
 
     //Contacts Section
@@ -22,6 +24,9 @@ public class newContactController implements Initializable {
     @FXML
     private Label contactIconPicture;
 
+    /** 
+     * set ID username
+    */
     public newContactController(String username) {
 //        singleContact.setId(singleContact + ":" + username);
     }

@@ -3,12 +3,8 @@ package final_project.csci2020u_final_project;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -16,6 +12,9 @@ import java.io.OutputStreamWriter;
 
 import static java.lang.System.out;
 
+/**
+ * Controller class for homescreen fxml file
+ */
 public class homeScreenController {
 
     @FXML
@@ -30,14 +29,23 @@ public class homeScreenController {
 
 
     //Log In Button Methods
+    /** 
+     * change opacity when login button is hovered over
+    */
     public void buttonHovered() {
         logInButton.setOpacity(0.5);
     }
-
+    /** 
+     * reset opacity when login button hover is finished
+    */
     public void buttonHoveredExited() {
         logInButton.setOpacity(1);
     }
 
+    /** 
+     * Transition from homescreen to chatscreen
+     * @throws IOException
+    */
     public void homeScreen_to_chatScreen() throws IOException {
         //Load chat screen fxml
         FXMLLoader loader = new FXMLLoader(getClass().getResource("chatScreen.fxml"));

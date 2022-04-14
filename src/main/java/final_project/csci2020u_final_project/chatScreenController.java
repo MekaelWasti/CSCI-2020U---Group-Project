@@ -1,16 +1,11 @@
 package final_project.csci2020u_final_project;
 
 import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -26,11 +21,12 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
-import java.util.ResourceBundle;
 
-import static java.lang.System.in;
 import static java.lang.System.out;
 
+/**
+ * Controls the chat screen fxml file
+*/
 public class chatScreenController {
 
     //Connect to server socket
@@ -85,8 +81,10 @@ public class chatScreenController {
     @FXML
     private Label contactIconPicture;
 
-
-    //Chat Screen controller constructor
+/**
+ * Chat Screen Controller Constructor
+ * @throws IOException 
+ */
     public chatScreenController() throws IOException {
         //Call method to listen For messages
         //Will run on new thread as listening
@@ -119,6 +117,9 @@ public class chatScreenController {
     //Contacts Section
 
     //Control drop-down button for adding new contacts
+    /**
+     * Control drop-down button to add new contacts 
+    */
     public void addNewContact() {
 
         //Call new contact entry field
@@ -134,15 +135,22 @@ public class chatScreenController {
         contactUsernameLabel.setText(contactUsernameTextField.getText());
     }
 
-    //Change Opacity of New Chat button on hover event
+    /** 
+     * Change opacity of new chat button when hovered over
+    */
     public void newChatButtonHovered() {
         newChatButton.setOpacity(0.5);
     }
+    /** 
+     * Reset opacity of new chat button when not hovered over
+    */
     public void newChatButtonHoveredExited() {
         newChatButton.setOpacity(1);
     }
 
-    //Toggle new chat drop down
+    /** 
+     * Toggle new chat drop-down
+    */
     public void newChatButtonDropDown() {
 
         //Change state of new Chat field to opposite
@@ -162,17 +170,25 @@ public class chatScreenController {
 
     //Send Button Methods
 
-    //Change Opacity of Send button on hover event
+    /** 
+     * Change opacity of send button when hovered over
+    */
     public void sendButtonHovered() {
         sendButton.setOpacity(0.5);
     }
+    /** 
+     * Reset opacity of send button when hovered over
+    */
     public void sendButtonHoveredExited() {
         sendButton.setOpacity(1);
     }
 
     //SetIPLabel Methods
 
-    //Copy IP to clipboard to share with contacts
+    /** 
+     * Copy IP to system clipboard
+     *  to share with contacts
+    */
     public void copyIPLabel() {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         final ClipboardContent content = new ClipboardContent();
@@ -194,7 +210,9 @@ public class chatScreenController {
         setCopiedMessage();
     }
 
-    //Copied Message Methods
+    /** 
+     * Set copied message (with animation)
+    */
     public void setCopiedMessage() {
         if (copiedMessage.isDisabled()) {
             copiedMessage.setVisible(true);
@@ -220,7 +238,11 @@ public class chatScreenController {
 
 
 
-    //Manage sending of message when enter key is pressed on keyboard
+    /** 
+     * Send message upon entry of enter key
+     * @param event Key event that listens for Enter key
+     * @throws IOException
+    */
     public void sendKeyClicked(KeyEvent event) throws IOException {
         if(event.getCode() == KeyCode.ENTER) {
             outgoingMessage = messageArea.getText();
@@ -230,7 +252,10 @@ public class chatScreenController {
         }
     }
 
-    //Manage sending of message when send button is clicked on GUI
+    /** 
+     * Send message upon send button click (UI)
+     * @throws IOException
+    */
     public void sendButtonClicked() throws IOException {
             outgoingMessage = messageArea.getText();
             out.println("SEND: " + outgoingMessage);
@@ -239,7 +264,10 @@ public class chatScreenController {
     }
 
 
-    //Send Message Over Socket to Server
+    /** 
+     * Send message over socket to the server
+     *  @throws IOException
+    */
     public void sendMessage() throws IOException {
         //Send Message
             try {
@@ -264,7 +292,10 @@ public class chatScreenController {
             }
     }
 
-    //Listen to incoming messaged sent in buffers by server
+    /** 
+     * Listen for incoming messages 
+     * sent via buffers by server. 
+    */
     //Due to blocking by readline method, need a new thread to listen for messages
     public void listenForMessage() {
         new Thread(new Runnable() {

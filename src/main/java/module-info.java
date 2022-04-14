@@ -1,3 +1,6 @@
+/**
+ * Info regarding modules used within the project
+ */
 module final_project.csci2020u_final_project {
     requires javafx.controls;
     requires javafx.fxml;
