@@ -56,7 +56,8 @@ public class homeScreenController {
             bw.write(homeScreenController.thisUSERNAME);
             bw.newLine();
             bw.flush();
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            out.println("Error");
         }
 
 

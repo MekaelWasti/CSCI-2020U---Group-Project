@@ -52,7 +52,6 @@ public class chatScreenController implements Initializable {
     }
 
     String outgoingMessage = "";
-    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
 //    public static String myport = s.getLocalPort();
 
 
@@ -125,12 +124,10 @@ public class chatScreenController implements Initializable {
     public void addNewContact() {
         newChatButtonDropDown();
         out.println("Sending Messages To: " + contactCode.getText());
-        int contactCount = 0;
         singleContact.setVisible(true);
         singleContact.setDisable(false);
         contactIconPicture.setText(String.valueOf(contactUsernameTextField.getText().charAt(0)));
         contactUsernameLabel.setText(contactUsernameTextField.getText());
-
     }
 
 
@@ -236,10 +233,11 @@ public class chatScreenController implements Initializable {
     public void sendMessage() throws IOException {
         //Send Message
             try {
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+
                 //Send Contact Code to server
                 bw.write(contactCode.getText());
                 bw.newLine();
-//                bw.flush();
 
                 //Send Username to server
                 bw.write(homeScreenController.thisUSERNAME);
@@ -271,7 +269,7 @@ public class chatScreenController implements Initializable {
                                 chatLog.appendText(incomingMessage + "\n\n");
                             }
                         } catch (IOException e) {
-//                            e.printStackTrace();
+                            e.printStackTrace();
                             }
                     }
         }
