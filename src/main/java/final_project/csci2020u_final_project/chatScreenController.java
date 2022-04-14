@@ -31,34 +31,25 @@ import java.util.ResourceBundle;
 import static java.lang.System.in;
 import static java.lang.System.out;
 
-public class chatScreenController implements Initializable {
+public class chatScreenController {
 
     //Connect to server socket
-    //public Socket s = new Socket("localhost",63030);                  //For server ran locally
-    //public Socket s = new Socket("99.232.136.159",63030);             //For testing
-    public static Socket s;     //For connection to AWS server (over internet)
+    public static Socket s;
     String ip = null; //My public IP is gotten in constructor
-
-
+    String outgoingMessage = "";
 
     static {
         try {
 //            s = new Socket("localhost",63030);                  //For server ran locally
-            s = new Socket("99.232.136.159",63030);             //For testing
-//            s = new Socket("54.226.250.215",63030);
+//            s = new Socket("99.232.136.159",63030);             //For testing
+            s = new Socket("54.89.207.56",63030);       //For connection to AWS server (over internet)
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    String outgoingMessage = "";
-//    public static String myport = s.getLocalPort();
 
-
-
-
-
-
+    //Declare FXML Elements
     @FXML
     private ImageView sendButton;
     @FXML
@@ -69,7 +60,6 @@ public class chatScreenController implements Initializable {
     private TextField contactUsernameTextField;
     @FXML
     private TextField contactCode;
-
     @FXML
     private TextField messageArea;
     @FXML
@@ -96,16 +86,22 @@ public class chatScreenController implements Initializable {
     private Label contactIconPicture;
 
 
+    //Chat Screen controller constructor
     public chatScreenController() throws IOException {
+        //Call method to listen For messages
+        //Will run on new thread as listening
+        //requires blocking so method will run indefinitely
         listenForMessage();
 
-        //Get My Public IP
+
+        //Get My Public IP from Amazon Web Services URL fetch
         URL myPublicIP = null;
         try {
             myPublicIP = new URL("http://checkip.amazonaws.com");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        //Read in the retrieved value
         BufferedReader in = null;
         try {
             in = new BufferedReader(new InputStreamReader(myPublicIP.openStream()));
@@ -113,6 +109,7 @@ public class chatScreenController implements Initializable {
             e.printStackTrace();
         }
         try {
+            //Set our IP variable to the fetched value from AWS URL
             ip = in.readLine();
         } catch (IOException e) {
             e.printStackTrace();
@@ -121,13 +118,45 @@ public class chatScreenController implements Initializable {
 
     //Contacts Section
 
+    //Control drop-down button for adding new contacts
     public void addNewContact() {
+
+        //Call new contact entry field
         newChatButtonDropDown();
-        out.println("Sending Messages To: " + contactCode.getText());
+        out.println("Sending Messages To: " + contactCode.getText()); //for development purposes
+
+        //Show current contact node
         singleContact.setVisible(true);
         singleContact.setDisable(false);
+
+        //Contact node is dynamic so icon shows initial of user and username is shown in node as well
         contactIconPicture.setText(String.valueOf(contactUsernameTextField.getText().charAt(0)));
         contactUsernameLabel.setText(contactUsernameTextField.getText());
+    }
+
+    //Change Opacity of New Chat button on hover event
+    public void newChatButtonHovered() {
+        newChatButton.setOpacity(0.5);
+    }
+    public void newChatButtonHoveredExited() {
+        newChatButton.setOpacity(1);
+    }
+
+    //Toggle new chat drop down
+    public void newChatButtonDropDown() {
+
+        //Change state of new Chat field to opposite
+        //of what it currently is on each click
+
+        if (newChatField.isDisabled()) {
+            newChatField.setVisible(true);
+            newChatField.setDisable(false);
+            return;
+        }
+        if (!newChatField.isDisabled()) {
+            newChatField.setVisible(false);
+            newChatField.setDisable(true);
+        }
     }
 
 
@@ -189,26 +218,7 @@ public class chatScreenController implements Initializable {
     }
 
 
-    //Change Opacity of New Chat button on hover event
-    public void newChatButtonHovered() {
-        newChatButton.setOpacity(0.5);
-    }
-    public void newChatButtonHoveredExited() {
-        newChatButton.setOpacity(1);
-    }
 
-    //Toggle new chat drop down
-    public void newChatButtonDropDown() {
-        if (newChatField.isDisabled()) {
-            newChatField.setVisible(true);
-            newChatField.setDisable(false);
-            return;
-        }
-        if (!newChatField.isDisabled()) {
-            newChatField.setVisible(false);
-            newChatField.setDisable(true);
-        }
-    }
 
     //Manage sending of message when enter key is pressed on keyboard
     public void sendKeyClicked(KeyEvent event) throws IOException {
@@ -266,7 +276,7 @@ public class chatScreenController implements Initializable {
                         try {
                             BufferedReader incoming = new BufferedReader(new InputStreamReader(s.getInputStream()));
                             while((incomingMessage = incoming.readLine()) != null) {
-                                chatLog.appendText(incomingMessage + "\n\n");
+                                chatLog.appendText(incomingMessage + "\n\n"); //Show received message in chat log
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -274,18 +284,5 @@ public class chatScreenController implements Initializable {
                     }
         }
         }).start();
-    }
-
-    //Need to override initialize from Initializable interface to initialize myIPLabel so that it
-    //is not null upon screen change and socket IP can be appended to the label
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-//
-//
-//
-////        myIPLabel.setText("MY IP: ");
-////        myIPLabel.setText("MY IP: " + ip + ":" + s.getLocalPort());
-////        myIPLabel.setText("My Code: " + thisUSERNAME + ":" + s.getLocalPort());
-
     }
 }

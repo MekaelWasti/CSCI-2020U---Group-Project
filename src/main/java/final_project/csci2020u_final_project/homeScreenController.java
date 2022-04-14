@@ -39,20 +39,18 @@ public class homeScreenController {
     }
 
     public void homeScreen_to_chatScreen() throws IOException {
-//        Parent root = FXMLLoader.load(getClass().getResource("chatScreen.fxml"));
-//        logo.setTranslateY(-175);
-//        logo.setTranslateY(-175);
-
-
+        //Load chat screen fxml
         FXMLLoader loader = new FXMLLoader(getClass().getResource("chatScreen.fxml"));
         Parent root = loader.load();
         chatScreenController labelController = loader.getController();
+
+        //Update label in chat screen using log in input from this screen
         labelController.myIPLabel.setText("My Code: " + inputUsername.getText() + ":" + chatScreenController.s.getLocalPort());
         thisUSERNAME = inputUsername.getText() + ":" + chatScreenController.s.getLocalPort();
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(chatScreenController.s.getOutputStream()));
 
+        //Send Username to server for client handling
         try {
-            //Send Username to server
             bw.write(homeScreenController.thisUSERNAME);
             bw.newLine();
             bw.flush();
@@ -60,11 +58,7 @@ public class homeScreenController {
             out.println("Error");
         }
 
-
+        //Change screens
         logInButton.getScene().setRoot(root);
-
-//        chatScreenController.myIPLabel.setText(inputUsername.getText());
-//        Stage window = (Stage) logInButton.getScene().getWindow();
-//        window.setScene(new Scene(root, 1280,720));
     }
 }

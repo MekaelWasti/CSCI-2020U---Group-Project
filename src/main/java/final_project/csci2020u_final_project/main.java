@@ -17,7 +17,6 @@ import static java.lang.System.out;
 public class main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("homeScreen.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("homeScreen.fxml"));
         Scene scene = new Scene(root, 1280, 720);
         stage.setTitle("PRISM");
@@ -26,7 +25,7 @@ public class main extends Application {
         stage.setResizable(false);
         stage.show();
 
-
+        //Terminate program when closed via windows methods (eg. windows program bar close button)
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent t) {
