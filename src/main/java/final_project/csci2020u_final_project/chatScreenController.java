@@ -36,9 +36,9 @@ public class chatScreenController {
 
     static {
         try {
-//            s = new Socket("localhost",63030);                  //For server ran locally
+            s = new Socket("localhost",63030);                  //For server ran locally
 //            s = new Socket("99.232.136.159",63030);             //For testing
-            s = new Socket("54.89.207.56",63030);       //For connection to AWS server (over internet)
+//            s = new Socket("54.89.207.56",63030);       //For connection to AWS server (over internet)
         } catch (IOException e) {
             e.printStackTrace();
         }
