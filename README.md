@@ -4,7 +4,7 @@ Final Project for CSCI 2020U by: Mekael Wasti - 100780179, Gavin Bosman - 100781
 
 **THE JAR IS AVAILABLE IN THE RELEASE SECTION ON THE MAIN PAGE OF THIS REPO TO THE RIGHT**
 
-REPO TO CHAT PROGRAM FOR THIS PROJECT: https://github.com/MekaelWasti/Java-Chat-Server-PRISM
+REPO TO SERVER PROGRAM FOR THIS PROJECT: https://github.com/MekaelWasti/Java-Chat-Server-PRISM
 
 ## Description
 
@@ -49,4 +49,4 @@ used on your solution:
 
 
 
-4. URL to a video demo of your application 
+4. URL to a video demo of your application: https://youtu.be/M2X6mSvmRAY
